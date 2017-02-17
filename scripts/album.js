@@ -30,6 +30,23 @@ var albumMarconi = {
     ]
 };
 
+// Another Example Album
+var albumLonghorn = {
+    title: '40 Acres',
+    artist: 'Bevo XIV',
+    label: 'UT',
+    year: '1881',
+    albumArtUrl: 'assets/images/album_covers/18.png',
+    songs: [
+        {title: 'Luxor, Where are you?', duration: '1:01' },
+        {title: 'Chula Vista', duration: '5:01' },
+        {title: 'Richard King', duration: '3:21' },
+        {title: 'Egyptian, are you calling?', duration: '3:14' },
+        {title: 'Sparkling City by the Sea', duration: '2:15' }
+    ]
+};
+
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template = 
          '<tr class="album-view-song-item">'
@@ -67,4 +84,9 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    document.getElementsByClassName('album-cover-art')[0].addEventListener("click", toggleAlbum);
+};
+
+function toggleAlbum() { 
+    setCurrentAlbum(albumLonghorn);
 };
