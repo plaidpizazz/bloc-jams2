@@ -113,8 +113,7 @@ var nextSong = function() {
         currentSongIndex = 0;
     }
     
-    currentlyPlayingSongNumber = currentSongIndex + 1;
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    setSong(currentSongIndex + 1);
     
     updatePlayerBarSong();
     
@@ -140,8 +139,7 @@ var previousSong = function() {
         currentSongIndex = currentAlbum.songs.length - 1;
     }
     
-    currentlyPlayingSongNumber = currentSongIndex + 1;
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    setSong(currentSongIndex + 1);
     
     updatePlayerBarSong();
     
