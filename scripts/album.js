@@ -11,6 +11,14 @@ var setSong = function(songNumber) {
         formats: [ 'mp3' ],
         preload: true
     });
+    
+    setVolume(currentVolume);
+};
+
+var setVolume = function(volume) {
+    if (currentSoundFile) {
+        currentSoundFile.setVolume(volume);
+    }
 };
 
 var getSongNumberCell = function(number) {
@@ -30,7 +38,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     
     var clickHandler = function() { 
     
-        var songNumber = parseInt($(this).attr('.data-song-number'));
+        var songNumber = parseInt($(this).attr('data-song-number'));
 
         if (currentlyPlayingSongNumber !== null) {
             var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
@@ -133,6 +141,7 @@ var nextSong = function() {
     
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    currentSoundFile.play();
     
     updatePlayerBarSong();
     
@@ -160,6 +169,7 @@ var previousSong = function() {
     
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    currentSoundFile.play();
     
     updatePlayerBarSong();
     
@@ -185,6 +195,7 @@ var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
+var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
