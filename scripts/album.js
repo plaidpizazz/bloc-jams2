@@ -36,7 +36,7 @@ var createSongRow = function(songNumber, songName, songLength) {
           '<tr class="album-view-song-item">'
         +' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
         +' <td class="song-item-title">' + songName + '</td>'
-        +' <td class="song-item-duration">' + songLength + '</td>'
+        +' <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
         +'</tr>'
         ;
     
@@ -137,6 +137,7 @@ var updateSeekBarWhileSongPlays = function() {
             var $seekBar = $('.seek-control .seek-bar');
             
             updateSeekPercentage($seekBar, seekBarFillRatio);
+            setCurrentTimeInPlayerBar(this.getTime());
         });
     }
 };
@@ -184,7 +185,7 @@ var setupSeekBars = function() {
             var barWidth = $seekBar.width();
             var seekBarFillRatio = offsetX / barWidth;
             
-            if ($seekBar.parent().attr('class') == 'sekk-control') {
+            if ($seekBar.parent().attr('class') == 'seek-control') {
                 seek(seekBarFillRatio * currentSoundFile.getDuration());
             } else {
                 setVolume(seekBarFillRatio);
@@ -210,6 +211,7 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
     
 };
 
@@ -269,6 +271,22 @@ var previousSong = function() {
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
     
+};
+
+var setCurrentTimeInPlayerBar = function (currentTime) {
+    $('.current-time').text(filterTimeCode(currentTime));
+};
+
+var setTotalTimeInPlayerBar = function (totalTime) {
+    $('.total-time').text(filterTimeCode(totalTime));
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var minutes = Math.floor(timeInSeconds / 60);
+    timeInSeconds = Math.floor(timeInSeconds % 60);
+    timeInSeconds = timeInSeconds < 10 ? "0" + timeInSeconds : timeInSeconds;
+    return minutes + ":" + timeInSeconds;
+    // var seconds = Math.floor(parseFloat(timeInSeconds) / 60);
 };
 
 // Album button templates
